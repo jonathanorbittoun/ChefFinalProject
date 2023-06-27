@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stocks Update</title>
+    <style>
+        body {
+            background-image: url("https://media.tenor.com/ILQPMy8OTbIAAAAC/stock-market-goes-up.gif");
+            background-repeat: repeat;
+            background-size: cover;
+        }
 
+        .btn {
+            background-color: black;
+            color: yellow;
+            font-size: 20px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            border: 2px solid yellow;
+            cursor: pointer;
+            margin-left: 650px;
+        }
+
+        .btn:hover {
+            background-color: yellow;
+            color: black;
+            border: 4px solid black;
+        }
+        #apiData {
+            background-color: yellow;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+.data-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 4px solid darkgreen;
+    padding: 20px;
+    margin-top: 20px;
+    width: 2000%; /* Extend to the right */
+}
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('updateButton');
+            const apiData = document.getElementById('apiData');
+
+            button.addEventListener('click', () => {
+                fetch('/api')
+                    .then(response => response.text())
+                    .then(data => {
+                        apiData.textContent = data;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <button id="updateButton" class="btn">Stocks Update</button>
+    </div>
+
+    <div class="data-container">
+        <h2>Full data on the stock:</h2>
+        <pre id="apiData"></pre>
+    </div>
+</body>
+</html>
